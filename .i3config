@@ -145,6 +145,13 @@ status_command $HOME/bin/conky-i3bar
     }
 }
 
+###################################
+#restructure VVV
+
+#bind key to send tilde
+#bindsym ctrl+space exec xdotool key --clearmodofiers asciitilde
+bindsym $mod+t exec xdotool key F1
+
 #Bind keys to lock screen
 bindsym $mod+ctrl+l exec ~/bin/lock
 
@@ -173,6 +180,9 @@ exec gnome-terminal
 
 # start dunst
 exec --no-startup-id dunst
+
+# use xmodmap to kill caps lock
+exec --no-startup-id xmodmap ~/.config/sync-configs/.xmod/.killcaps
 
 
 ############################################################
