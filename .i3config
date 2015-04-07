@@ -1,4 +1,34 @@
+# i3 CONFIG FILE
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#    hit mod+shift+c/r to reload and reflect the changes
+
+##################################################
+## VVV                COLORS                VVV ##
+##################################################
+
+set $bg     #2c2c2e
+set $fg     #9f9f9f
+set $hi     #efef8f
+set $ac     #a0afa0
+set $tx     #040404
+set $ia     #8f8f8f
+set $be     #8faf9f
+set $yw     #ccdc90
+#set $gn     #ff0000
+set $gn     #88b090
+set $rd     #e89393
+
+set $blue #005588
+set $gray1 #484848
+set $gray2 #333333
+set $gray3 #7E7E7E
+
+
+##################################################
+## VVV               BORDERS                VVV ##
+##################################################
+new_window pixel 3
+
 
 ############################################################
 ##### VVV            STANDARD i3 BINDINGS          VVV #####
@@ -65,6 +95,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+
 ############################################################
 ##### VVV         SWITCH WORKSPACE BINDINGS        VVV #####
 ############################################################
@@ -80,6 +111,17 @@ bindsym $mod+7 workspace number 7 code
 bindsym $mod+8 workspace number 8 code
 bindsym $mod+9 workspace number 9 steam
 bindsym $mod+0 workspace number 10 misc
+# Allow keypad use
+bindsym $mod+KP_1 workspace 1
+bindsym $mod+KP_2 workspace 2
+bindsym $mod+KP_3 workspace 3
+bindsym $mod+KP_4 workspace 4
+bindsym $mod+KP_5 workspace 5
+bindsym $mod+KP_6 workspace 6
+bindsym $mod+KP_7 workspace 7
+bindsym $mod+KP_8 workspace 8
+bindsym $mod+KP_9 workspace 9
+bindsym $mod+KP_0 workspace 10
 
 ############################################################
 ##### VVV          MOVE CONTAINER BINDINGS         VVV #####
@@ -96,33 +138,28 @@ bindsym $mod+Shift+7 move container to workspace number 7 code
 bindsym $mod+Shift+8 move container to workspace number 8 code
 bindsym $mod+Shift+9 move container to workspace number 9 steam
 bindsym $mod+Shift+0 move container to workspace number 10 misc
+# Allow keypad use
+bindsym $mod+Shift+KP_1 move container to workspace 1
+bindsym $mod+Shift+KP_2 move container to workspace 2
+bindsym $mod+Shift+KP_3 move container to workspace 3
+bindsym $mod+Shift+KP_4 move container to workspace 4
+bindsym $mod+Shift+KP_5 move container to workspace 5
+bindsym $mod+Shift+KP_6 move container to workspace 6
+bindsym $mod+Shift+KP_7 move container to workspace 7
+bindsym $mod+Shift+KP_8 move container to workspace 8
+bindsym $mod+Shift+KP_9 move container to workspace 9
+bindsym $mod+Shift+KP_0 move container to workspace 10
 
+##################################################
+## VVV          SET WINDOW COLORS           VVV ##
+##################################################
 
+# Set some nice colors      border    background    text       split-marker
+client.focused               $gray1    $gray3        #FFFFFF    #494949
+client.unfocused             $gray2    $gray2        #FFFFFF    $gray2
+client.focused_inactive      $gray2    $gray2        #FFFFFF    $gray2
+client.urgent                $gray2    $gray2        $FFFFFF    $gray2
 
-############################################################
-##### VVV               DEFINE COLORS              VVV #####
-############################################################
-
-set $bg     #2c2c2e
-set $fg     #9f9f9f
-set $hi     #efef8f
-set $ac     #a0afa0
-set $tx     #040404
-set $ia     #8f8f8f
-set $be     #8faf9f
-set $yw     #ccdc90
-set $gn     #88b090
-set $rd     #e89393
-
-############################################################
-##### VVV               WINDOW COLORS              VVV #####
-############################################################
-
-# set some nice colors      border     background  text
-client.focused              $ac        $ac         $tx
-client.unfocused            $bg        $bg         $ia
-client.focused_inactive     $bg        $bg         $ac
-client.urgent               $rd        $rd         $tx
 
 ############################################################
 ##### VVV                   i3bar                  VVV #####
@@ -145,12 +182,9 @@ status_command $HOME/bin/conky-i3bar
     }
 }
 
-###################################
-#restructure VVV
-
-#bind key to send tilde
-#bindsym ctrl+space exec xdotool key --clearmodofiers asciitilde
-bindsym $mod+t exec xdotool key F1
+##################################################
+## VVV          MISC. KEY BINDINGS          VVV ##
+##################################################
 
 #Bind keys to lock screen
 bindsym $mod+ctrl+l exec ~/bin/lock
@@ -158,9 +192,12 @@ bindsym $mod+ctrl+l exec ~/bin/lock
 #Bind key to nemo (file manager)
 bindsym $mod+n exec nemo
 
+#Bind Print screen to scrot
+bindsym Print exec scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/shots/'
+
 
 ############################################################
-##### VVV           START APPS ON LOG IN           VVV #####
+##### VVV                 AUTOSTART                VVV #####
 ############################################################
 
 # start spotify
@@ -193,9 +230,16 @@ exec --no-startup-id xmodmap ~/.config/sync-configs/.xmod/.killcaps
 bindsym XF86AudioMute exec amixer -q -D pulse set Master toggle
 bindsym XF86AudioLowerVolume exec amixer -q set Master 3%- unmute
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 3%+ unmute
-bindsym XF86AudioPlay exec spotify-play
-bindsym XF86AudioPrev exec spotify-prev
-bindsym XF86AudioNext exec spotify-next
+bindsym XF86AudioPlay exec spotify-control play
+bindsym XF86AudioPrev exec spotify-control prev
+bindsym XF86AudioNext exec spotify-control next
+# also bind shift+f-keys
+bindsym shift+F1 exec amixer -q -D pulse set Master toggle
+bindsym shift+F2 exec amixer -q set Master 3%- unmute
+bindsym shift+F3 exec amixer -q set Master 3%+ unmute
+bindsym shift+F4 exec spotify-control play
+bindsym shift+F5 exec spotify-control previous
+bindsym shift+F6 exec spotify-control next
 
 
 ############################################################
