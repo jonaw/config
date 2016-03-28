@@ -271,7 +271,7 @@ bindsym $mod+Escape mode "$mode_exit"
 
 # Resize mode
 # set name of resize mode
-set $mode_resize !!! RESIZE !!!
+set $mode_resize !!! RESIZE !!! RESIZE !!! RESIZE !!!
 #define mode
 mode "$mode_resize" {
         bindsym Left resize shrink width 10 px or 10 ppt
