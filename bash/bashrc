@@ -9,3 +9,5 @@ alias ....='cd ../../..'
 alias c='clear'
 alias blackout='xset dpms force off'
 alias mv='mv -v'
+
+shuf -n 1 ~/.insults | cowsay | lolcat
